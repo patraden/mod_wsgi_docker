@@ -20,13 +20,8 @@ class HelloWorldExample:
                         "RETURN a.message + ', from node ' + id(a)", message=message)
         return result.single()[0]
 
-def application(environ, start_response):
 
-
-
-    status = '200 OK'
-    output = bytes('Hello World and Patrashi!','utf-8')
-    response_headers = [('Content-type', 'text/plain'),
-                        ('Content-Length', str(len(output)))]
-    start_response(status, response_headers)
-    return [output]
+if __name__ == "__main__":
+    greeter = HelloWorldExample("bolt://neo4j:7687", "neo4j", "s3cr3t")
+    greeter.print_greeting("hello, world")
+    greeter.close()
