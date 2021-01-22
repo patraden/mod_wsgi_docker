@@ -34,7 +34,8 @@ test ! -z "$MOD_WSGI_VERSION" || exit 1
 
 #apt-get install -y apache2=$APACHE_VERSION apache2-dev=$APACHE_VERSION locales mariadb-client \
 apt-get install -y apache2 apache2-dev locales mariadb-client \
-    curl libcap2-bin default-libmysqlclient-dev --no-install-recommends
+    curl libcap2-bin default-libmysqlclient-dev \
+    openssh-server whois sudo --no-install-recommends
 
 # Clean up the package index.
 

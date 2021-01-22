@@ -72,7 +72,7 @@ class mySQLHandler(logging.Handler):
         self.dbpassword = kwargs['dbpassword']
         self.dbname = kwargs['dbname']
         self.log_table = kwargs['log_table']
-        self.sql_conn, self.sql_cursor =  self.connect_to_db()
+        self.sql_conn, self.sql_cursor = self.connect_to_db()
 
     def connect_to_db(self):
         """

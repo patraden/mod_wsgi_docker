@@ -8,6 +8,9 @@ ARG CERTIFICATE_PASSWORD
 ARG CERTIFICATE_NAME
 ARG BASIC_USER
 ARG BASIC_USER_PASSWORD
+ARG WSGI_USER
+ARG WSGI_USER_PASSWORD
+
 MAINTAINER denis.patrakhin@gmail.com
 
 ENV APACHE_VERSION=2.4.38-3+deb10u3\
@@ -25,6 +28,11 @@ COPY apps.list /tmp/apps.list
 COPY requirements.txt /tmp/requirements.txt
 RUN /usr/local/bin/mod_wsgi-docker-configure-apache
 
-ENV MOD_WSGI_USER=wsgi-user MOD_WSGI_GROUP=root
-CMD apachectl -D FOREGROUND
+COPY entrypoint.sh entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENV MOD_WSGI_USER=$WSGI_USER MOD_WSGI_GROUP=root
+
 WORKDIR /app
+
+CMD ["/entrypoint.sh"]

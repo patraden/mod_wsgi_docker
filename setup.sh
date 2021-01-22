@@ -33,8 +33,15 @@ LANG=en_US.UTF-8
 # run. This has group of 'root' with gid of '0' as it appears to be
 # safest bet to allow file system permisions for everything to work.
 
-adduser --disabled-password --gecos "wsgi-user" --uid 1000 --gid 0 \
-   --home /home/wsgi wsgi-user
+adduser --disabled-password --gecos "$WSGI_USER" --uid 1000 --gid 0 \
+   --home /home/wsgi $WSGI_USER
+
+usermod --password $(echo "$WSGI_USER_PASSWORD" | mkpasswd -s) $WSGI_USER
+
+# Create authorisation keys folder and file to enable ssh access
+
+sudo -u $WSGI_USER mkdir /home/wsgi/.ssh
+sudo -u $WSGI_USER touch /home/wsgi/.ssh/authorized_keys
 
 # Set the umask to be '002' so that any files/directories created from
 # this point are group writable. This does rely on any applications or
